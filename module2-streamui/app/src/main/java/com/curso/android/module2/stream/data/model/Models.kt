@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
  * ================================================================================
  * MODELS.KT - Modelos de Datos
  * ================================================================================
- *
+ *een
  * Este archivo define las entidades principales del dominio de la aplicación.
  *
  * CONCEPTO CLAVE: @Serializable

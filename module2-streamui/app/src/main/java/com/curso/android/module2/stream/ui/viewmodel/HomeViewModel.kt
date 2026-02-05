@@ -209,4 +209,31 @@ class HomeViewModel(
     fun refresh() {
         loadCategories()
     }
+
+    // Toggle de favorite
+    fun toggleFavorite(songId: String) {
+        val currentState = _uiState.value
+
+        if (currentState is HomeUiState.Success) {
+
+            val updatedCategories = currentState.categories.map { category ->
+                val updatedSongs =
+                    category.songs.map { song ->
+                        if (song.id == songId) {
+                            song.copy(isFavorite = !song.isFavorite)
+                        } else {
+                            song.copy()
+                        }
+
+                    }
+                category.copy(songs = updatedSongs)
+
+
+            }
+            _uiState.value = HomeUiState.Success(
+                categories = updatedCategories
+            )
+        }
+
+    }
 }

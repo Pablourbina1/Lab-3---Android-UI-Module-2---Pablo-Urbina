@@ -28,12 +28,12 @@ fun SongCard (
             .clickable { onClick() },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box (
+        Box {
             SongCoverMock(
-            colorSeed = song.colorSeed,
-            size = 80.dp
+                colorSeed = song.colorSeed,
+                size = 80.dp
             )
-        ){
+
             Icon(
                 imageVector = if (song.isFavorite)
                     Icons.Default.Favorite

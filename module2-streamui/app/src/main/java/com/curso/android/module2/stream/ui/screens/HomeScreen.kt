@@ -31,6 +31,7 @@ import com.curso.android.module2.stream.ui.components.SongCoverMock
 import com.curso.android.module2.stream.ui.viewmodel.HomeUiState
 import com.curso.android.module2.stream.ui.viewmodel.HomeViewModel
 import org.koin.compose.viewmodel.koinViewModel
+import com.curso.android.module2.stream.ui.components.SongCard
 
 /**
  * ================================================================================
@@ -124,7 +125,10 @@ fun HomeScreen(
             is HomeUiState.Success -> {
                 HomeContent(
                     categories = state.categories,
-                    onSongClick = onSongClick
+                    onSongClick = onSongClick,
+                    onFavoriteClick = { song ->
+                        viewModel.toggleFavorite(song)
+                    }
                 )
             }
 
@@ -173,7 +177,8 @@ private fun ErrorContent(message: String) {
 @Composable
 private fun HomeContent(
     categories: List<Category>,
-    onSongClick: (Song) -> Unit
+    onSongClick: (Song) -> Unit,
+    onFavoriteClick: (String) -> Unit
 ) {
     /**
      * LAZYCOLUMN: Lista Vertical Eficiente
@@ -206,7 +211,8 @@ private fun HomeContent(
         ) { category ->
             CategorySection(
                 category = category,
-                onSongClick = onSongClick
+                onSongClick = onSongClick,
+                onFavoriteClick = onFavoriteClick
             )
         }
     }
@@ -221,7 +227,8 @@ private fun HomeContent(
 @Composable
 private fun CategorySection(
     category: Category,
-    onSongClick: (Song) -> Unit
+    onSongClick: (Song) -> Unit,
+    onFavoriteClick: (String) -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -256,9 +263,7 @@ private fun CategorySection(
                 SongCard(
                     song = song,
                     onClick = { onSongClick(song) },
-                    onFavoriteClick = { songId ->
-                        viewModel.toggleFavorite(songId)
-                    }
+                    onFavoriteClick = { onFavoriteClick(song.id) }
 
                 )
             }
