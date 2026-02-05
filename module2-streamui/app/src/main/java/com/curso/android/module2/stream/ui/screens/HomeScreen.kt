@@ -255,7 +255,11 @@ private fun CategorySection(
             ) { song ->
                 SongCard(
                     song = song,
-                    onClick = { onSongClick(song) }
+                    onClick = { onSongClick(song) },
+                    onFavoriteClick = { songId ->
+                        viewModel.toggleFavorite(songId)
+                    }
+
                 )
             }
         }
@@ -270,45 +274,3 @@ private fun CategorySection(
  * @param song Datos de la canción
  * @param onClick Callback cuando se hace click
  */
-@Composable
-private fun SongCard(
-    song: Song,
-    onClick: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .width(120.dp)
-            // clickable hace que toda la columna sea interactiva
-            // También añade feedback visual (ripple effect)
-            .clickable(onClick = onClick),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // Cover generado por código
-        SongCoverMock(
-            colorSeed = song.colorSeed,
-            size = 120.dp
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        // Título de la canción
-        Text(
-            text = song.title,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis, // "..." si el texto es muy largo
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        // Artista
-        Text(
-            text = song.artist,
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
-}
