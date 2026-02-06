@@ -94,7 +94,7 @@ import com.curso.android.module2.stream.ui.components.SongCard
  */
 @Composable
 fun HighlightsScreen(
-    viewModel: HomeViewModel = koinViewModel(),
+    viewModel: HomeViewModel,
     onSongClick: (Song) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -127,14 +127,26 @@ fun HighlightsScreen(
             val favorite = state.categories
                 .flatMap { it.songs } //Crea lista de canciones
                 .filter { it.isFavorite } //Solo elije las canciones favoritas
-                Highlights(
-                    Songs = favorite,
-                    onSongClick = onSongClick,
-                    onFavoriteClick = { song ->
-                        viewModel.toggleFavorite(song)
+                if (favorite.isEmpty()) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "No tienes canciones favoritas",
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                     }
+                } else {
+                    Highlights(
+                        Songs = favorite,
+                        onSongClick = onSongClick,
+                        onFavoriteClick = { song ->
+                            viewModel.toggleFavorite(song)
+                        }
 
-                )
+                    )
+                }
             }
 
             is HomeUiState.Error -> {
@@ -200,7 +212,9 @@ private fun Highlights(
      */
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(vertical = 16.dp)
+        contentPadding = PaddingValues(vertical = 20.dp, horizontal = 20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+
     ) {
         /**
          * items {} es una función de LazyListScope que genera
@@ -223,15 +237,3 @@ private fun Highlights(
     }
 }
 
-/**
- *
- * @param Songs Cancion a mostrar
- * @param onSongClick Callback para clicks en canciones
- */
-
-/**
- * Tarjeta individual de una canción.
- *
- * @param song Datos de la canción
- * @param onClick Callback cuando se hace click
- */

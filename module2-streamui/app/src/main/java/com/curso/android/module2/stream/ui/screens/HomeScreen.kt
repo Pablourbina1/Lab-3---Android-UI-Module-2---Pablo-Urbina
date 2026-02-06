@@ -93,7 +93,7 @@ import com.curso.android.module2.stream.ui.components.SongCard
  */
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = koinViewModel(),
+    viewModel: HomeViewModel,
     onSongClick: (Song) -> Unit,
     modifier: Modifier = Modifier
 ) {
