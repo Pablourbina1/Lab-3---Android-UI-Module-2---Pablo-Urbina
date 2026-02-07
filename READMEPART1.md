@@ -4,6 +4,7 @@
 Esta parte se enfocó en poner en practica el funcionamiento de UDF y MVVM, manejando los cambios de estado.
 Se añadio un boton de favoritos a las canciones en forma de corazón, el cual refleja el estado actual de una cancion dependiendo si esta marcada como favorita o no, cumpliendo el DoD.
 
+## Definition of Done
 | Criterio | Descripción |
 |---------|-------------|
 | Modelo actualizado | Song tiene el campo `isFavorite: Boolean = false` |
